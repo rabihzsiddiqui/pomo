@@ -43,15 +43,13 @@ export default function Timer({ settings }: TimerProps) {
 
   useFavicon(isWork, progress);
 
-  const [muted, setMuted] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return localStorage.getItem("pomo-muted") === "1";
-  });
+  const [muted, setMuted] = useState(false);
+  const [showHint, setShowHint] = useState(true);
 
-  const [showHint, setShowHint] = useState(() => {
-    if (typeof window === "undefined") return true;
-    return localStorage.getItem("pomo-hint-dismissed") !== "1";
-  });
+  useEffect(() => {
+    setMuted(localStorage.getItem("pomo-muted") === "1");
+    setShowHint(localStorage.getItem("pomo-hint-dismissed") !== "1");
+  }, []);
 
   // reset timer whenever settings change
   const settingsKey = `${settings.workMinutes}-${settings.shortBreakMinutes}-${settings.longBreakMinutes}-${settings.sessionsBeforeLongBreak}`;
