@@ -33,7 +33,7 @@ export default function Timer({ settings }: TimerProps) {
   const { mode, timeRemaining, isRunning, completedSessions, start, pause, resume, skip, reset } =
     usePomodoro(settings);
 
-  const { completedToday, logSession } = useSessions();
+  const { completedToday, logSession, resetSessions } = useSessions();
   const { requestPermission, notify } = useNotifications();
   const { play } = useChime();
 
@@ -183,7 +183,7 @@ export default function Timer({ settings }: TimerProps) {
         </button>
       </div>
 
-      <SessionLog completed={completedToday} goal={settings.dailyGoal} />
+      <SessionLog completed={completedToday} goal={settings.dailyGoal} onReset={resetSessions} />
     </div>
   );
 }

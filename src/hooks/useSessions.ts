@@ -32,6 +32,18 @@ function appendSession(): void {
   }
 }
 
+function clearToday(): void {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const all: Record<string, number[]> = JSON.parse(raw);
+    delete all[todayKey()];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+  } catch {
+    // storage unavailable
+  }
+}
+
 export function useSessions() {
   const [completedToday, setCompletedToday] = useState(0);
 
@@ -44,5 +56,10 @@ export function useSessions() {
     setCompletedToday((prev) => prev + 1);
   }, []);
 
-  return { completedToday, logSession };
+  const resetSessions = useCallback(() => {
+    clearToday();
+    setCompletedToday(0);
+  }, []);
+
+  return { completedToday, logSession, resetSessions };
 }

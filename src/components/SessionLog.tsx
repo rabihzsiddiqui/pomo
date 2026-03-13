@@ -3,9 +3,10 @@
 interface SessionLogProps {
   completed: number;
   goal: number;
+  onReset: () => void;
 }
 
-export default function SessionLog({ completed, goal }: SessionLogProps) {
+export default function SessionLog({ completed, goal, onReset }: SessionLogProps) {
   const hasGoal = goal > 0;
   const dotCount = hasGoal ? goal : completed;
 
@@ -25,11 +26,20 @@ export default function SessionLog({ completed, goal }: SessionLogProps) {
           />
         ))}
       </div>
-      <span className="text-xs text-zinc-600">
-        {hasGoal
-          ? `${completed} of ${goal} sessions`
-          : `${completed} session${completed !== 1 ? "s" : ""} today`}
-      </span>
+      <div className="flex items-center gap-3">
+        <span className="text-xs text-zinc-600">
+          {hasGoal
+            ? `${completed} of ${goal} sessions`
+            : `${completed} session${completed !== 1 ? "s" : ""} today`}
+        </span>
+        <button
+          onClick={onReset}
+          aria-label="reset session count"
+          className="text-xs text-zinc-700 hover:text-zinc-500 transition-colors duration-200 focus-visible:outline-none focus-visible:text-zinc-500"
+        >
+          clear
+        </button>
+      </div>
     </div>
   );
 }
