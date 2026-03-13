@@ -6,7 +6,7 @@ interface NavbarProps {
 
 export default function Navbar({ onSettingsClick }: NavbarProps) {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-4 bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800/80">
+    <nav className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-4 bg-zinc-950/90 backdrop-blur-md">
       <a href="/" className="text-white font-semibold text-lg leading-none">
         pomodoRo<span className="text-amber-500">.</span>
       </a>
