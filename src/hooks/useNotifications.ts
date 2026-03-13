@@ -13,7 +13,12 @@ export function useNotifications() {
   const notify = useCallback((title: string, body?: string) => {
     if (typeof Notification === "undefined") return;
     if (Notification.permission !== "granted") return;
-    new Notification(title, { body, silent: true });
+    try {
+      new Notification(title, { body, silent: true });
+    } catch {
+      // mobile browsers require ServiceWorkerRegistration.showNotification()
+      // — degrade silently
+    }
   }, []);
 
   return { requestPermission, notify };
